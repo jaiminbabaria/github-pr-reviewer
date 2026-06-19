@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublishToSNS",
+      "Effect": "Allow",
+      "Action": "sns:Publish",
+      "Resource": "arn:aws:sns:*:*:pr-review-events"
+    },
+    {
+      "Sid": "ReadDynamo",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:Query"
+      ],
+      "Resource": [
+        "arn:aws:dynamodb:*:*:table/reviews",
+        "arn:aws:dynamodb:*:*:table/repositories",
+        "arn:aws:dynamodb:*:*:table/reviews/index/*"
+      ]
+    }
+  ]
+}

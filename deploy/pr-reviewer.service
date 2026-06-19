@@ -1,0 +1,22 @@
+# /etc/systemd/system/pr-reviewer.service
+# systemd unit running the FastAPI app under uvicorn.
+# Logs go to journald (view with: journalctl -u pr-reviewer -f).
+[Unit]
+Description=GitHub PR Reviewer FastAPI service
+After=network.target
+
+[Service]
+Type=simple
+User=prreviewer
+Group=prreviewer
+WorkingDirectory=/opt/pr-reviewer/fastapi-app
+EnvironmentFile=/opt/pr-reviewer/fastapi-app/.env
+ExecStart=/opt/pr-reviewer/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 2
+Restart=always
+RestartSec=3
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
