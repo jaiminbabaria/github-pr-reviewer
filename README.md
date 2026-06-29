@@ -97,7 +97,7 @@ github-pr-reviewer/
 
 > **Cost reality check:** `gpt-4o` is billed per token, and every PR (and every
 > new commit on a PR, if you keep `synchronize`) triggers a paid call. EC2
-> `t2.micro` is free-tier eligible for 12 months, then ~\$8.50/mo. SNS/SQS/Lambda/
+> `t2.micro/t3.micro` is free-tier eligible for 12 months, then ~\$8.50/mo. SNS/SQS/Lambda/
 > DynamoDB on-demand are effectively free at portfolio volume. Set an OpenAI
 > spend limit before pointing this at a busy repo.
 
@@ -183,7 +183,7 @@ bash infra/03_create_cloudwatch_alarms.sh
 
 ### 6. Launch + configure EC2
 
-1. Launch an Ubuntu 22.04/24.04 `t2.micro`. Attach the `pr-review-ec2-profile`
+1. Launch an Ubuntu 22.04/24.04 `t2.micro/t3.micro`. Attach the `pr-review-ec2-profile`
    instance profile. Security group: inbound 22 (your IP), 80, 443.
 2. SSH in, install git, clone this repo (or `scp` it up).
 3. Run the bootstrap:
